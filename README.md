@@ -1,34 +1,31 @@
-# hardhat_
-###Token Contract
-This is a Solidity smart contract for a token called "My Hardhat Token" (MHT). The contract allows token transfers between Ethereum accounts and provides functions for minting and burning tokens.
+# My Hardhat Token
 
-##Prerequisites
-Solidity compiler version ^0.8.9
-Hardhat library
-##Installation
-Clone the repository.
-Install the required dependencies by running the following command:
-shell
-Copy code
-npm install
-##Usage
-Compile the smart contract by running the following command:
-shell
-Copy code
-npx hardhat compile
-Deploy the contract to an Ethereum network of your choice.
+This is a simple smart contract that implements a token. The token has a name, a symbol, and a total supply. It also has functions to transfer tokens, mint tokens, and burn tokens.
 
-Interact with the contract by calling its functions from a compatible Ethereum wallet or using a development tool like Hardhat Network.
+## Functions
 
-##Contract Details
-name (string): The name of the token ("My Hardhat Token").
-symbol (string): The symbol of the token ("MHT").
-totalSupply (uint256): The total supply of tokens (1,000,000).
-owner (address): The address of the contract owner.
-##Functions
-mint(address _address, uint _value): Mints additional tokens and assigns them to the specified address.
-burn(address _address, uint _value): Burns tokens from the specified address by deducting the value from the total supply and the balance of the sender.
-transfer(address to, uint256 amount): Transfers tokens from the sender's account to the specified account.
-balanceOf(address account): Retrieves the token balance of a given account.
-##Events
-Transfer(address indexed _from, address indexed _to, uint256 _value): Triggered when tokens are transferred between accounts.
+* `mint(address _address, uint _value)` - Mints `_value` tokens to the address `_address`.
+* `burn(address _address, uint _value)` - Burns `_value` tokens from the address `_address`.
+* `transfer(address to, uint256 amount)` - Transfers `amount` tokens from the caller to the address `to`.
+* `balanceOf(address account)` - Returns the balance of the account `account`.
+
+## Usage
+
+To deploy the contract, you can use the following command:
+
+
+npx hardhat deploy
+
+
+Once the contract is deployed, you can use the following commands to interact with it:
+
+
+npx hardhat mint <address> <amount>
+npx hardhat burn <address> <amount>
+npx hardhat transfer <from> <to> <amount>
+npx hardhat balanceOf <address>
+```
+
+## License
+
+This code is licensed under the MIT License.
