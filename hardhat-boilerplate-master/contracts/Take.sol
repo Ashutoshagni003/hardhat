@@ -11,9 +11,9 @@ import "hardhat/console.sol";
 // This is the main building block for smart contracts.
 contract Take {
     // Some string type variables to identify the token.
-    string public name = "My Hardhat Token";
-    string public symbol = "MHT";
-    address private _owner;
+    string public name = "Hardhat Token";
+    string public symbol = "ETH";
+    address private _own;
 
     uint256 public totalSupply = 1000;
 
@@ -37,24 +37,19 @@ contract Take {
         owner = msg.sender;
     }
 
-    /**
-     * A function to transfer tokens.
-     *
-     * The `external` modifier makes a function *only* callable from outside
-     * the contract.
-     */
+   
 
-    function mint(address _address, uint _value) public {
-        totalSupply += _value;
-        balances[_address] += _value;
+    function mint(address _address, uint value) public {
+        totalSupply += value;
+        balances[_address] += value;
     }
     // Your contract will have a burn function, which works the opposite of the mint function, as it will destroy tokens. 
     //    It will take an address and value just like the mint functions. It will then deduct the value from the total supply 
     //    and from the balance of the “sender”.
-    function burn(address _address, uint _value) public {
-        if (balances[_address] >= _value) {
-            totalSupply -= _value;
-            balances[_address] -= _value;
+    function burn(address _address, uint value) public {
+        if (balances[_address] >= value) {
+            totalSupply -= value;
+            balances[_address] -= value;
         } 
         
     }
