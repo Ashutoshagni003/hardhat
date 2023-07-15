@@ -31,36 +31,37 @@ contract Take {
      * Contract initialization.
      */
     constructor() {
-        // The totalSupply is assigned to the transaction sender, which is the
-        // account that is deploying the contract.
-        balances[msg.sender] = totalSupply;
-        owner = msg.sender;
-    }
+    balances[msg.sender] = totalSupply;
+    _owner = msg.sender;
+}
 
-   
+modifier onlyOwner() {
+    require(msg.sender == _owner, "Only the contract owner can call this function.");
+    _;
+}
 
-    function mint(address _address, uint value) public {
-        totalSupply += value;
-        balances[_address] += value;
-    }
-    // Your contract will have a burn function, which works the opposite of the mint function, as it will destroy tokens. 
-    //    It will take an address and value just like the mint functions. It will then deduct the value from the total supply 
-    //    and from the balance of the “sender”.
-    function burn(address _address, uint value) public {
-        if (balances[_address] >= value) {
-            totalSupply -= value;
-            balances[_address] -= value;
-        } 
-        
-    }
+function transfer(address _to, uint256 _value) external {
+    require(balances[msg.sender] >= _value, "Insufficient balance.");
+    balances[msg.sender] -= _value;
+    balances[_to] += _value;
+    emit Transfer(msg.sender, _to, _value);
+}
 
-    /**
-     * Read only function to retrieve the token balance of a given account.
-     *
-     * The `view` modifier indicates that it doesn't modify the contract's
-     * state, which allows us to call it without executing a transaction.
-     */
-    function balanceOf(address account) external view returns (uint256) {
-        return balances[account];
-    }
+function mint(address _address, uint256 _value) external onlyOwner {
+    totalSupply += _value;
+    balances[_address] += _value;
+    emit Mint(_address, _value);
+}
+
+function burn(uint256 _value) external {
+    require(balances[msg.sender] >= _value, "Insufficient balance.");
+    totalSupply -= _value;
+    balances[msg.sender] -= _value;
+    emit Burn(msg.sender, _value);
+}
+
+function balanceOf(address account) external view returns (uint256) {
+    return balances[account];
+}
+
 }
